@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Common.App.Core.Dapper.Helpers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Common.App.Core.Dapper.ServiceContracts
 {
     public interface ICommonServices
     {
+        List<SelectListItem> GetDropDown(DropdownRequest Modal);
     }
 }

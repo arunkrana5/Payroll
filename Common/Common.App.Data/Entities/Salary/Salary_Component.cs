@@ -13,9 +13,11 @@ namespace Common.App.Data.Entities.Salary
         public long CompID { get; set; }
         [Required(ErrorMessage="Please Enter Components Code")]
         public string CompCode { get; set; }
+        [Required(ErrorMessage = "Please Enter Components Name")]
         public string CompName { get; set; }
+        [Required(ErrorMessage = "Please Select Components Type")]
         public string CompType { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public bool IsDepend_PD { get; set; }
         public bool IsTaxApplicable { get; set; }
         public bool IsStatisticalComp { get; set; }

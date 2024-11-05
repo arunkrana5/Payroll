@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.App.Data.Entities.Salary
+namespace Common.App.Core.Dapper.Models.Salary
 {
-    public class Salary_Structure:BaseEntity
+    public class SalaryStructures
     {
-        [Key]
         public long StructID { get; set; }
-        [Required(ErrorMessage ="Please Enter Structure Code")]
+        public int LoginID { get; set; }
         public string StructCode { get; set; }
         public string Description { get; set; }
     }

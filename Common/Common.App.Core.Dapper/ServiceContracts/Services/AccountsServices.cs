@@ -33,6 +33,7 @@ namespace Common.App.Core.Dapper.ServiceContracts.Services
             }
             catch (Exception ex)
             {
+
             }
             return null;
         }

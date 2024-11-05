@@ -27,6 +27,12 @@ namespace Common.App.Data
             Claim claim = identity?.FindFirst(DataConstant.CT_LoginID);
             return claim?.Value ?? string.Empty;
         }
+        public string GetUserName()
+        {
+            ClaimsIdentity identity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            Claim claim = identity?.FindFirst(DataConstant.CT_UserName);
+            return claim?.Value ?? string.Empty;
+        }
 
 
     }

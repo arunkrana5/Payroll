@@ -1,4 +1,5 @@
 ﻿using Common.App.Data.Entities;
+using Common.App.Data.Entities.Masters;
 using Common.App.Data.Entities.Salary;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,14 @@ namespace Common.App.Data
         }
         public DbSet<Salary_Component> Salary_Component { get; set; }
         public DbSet<Salary_Structure> Salary_Structure { get; set; }
+        public DbSet<Salary_StructureTran> Salary_StructureTran { get; set; }
+        public DbSet<Salary_Assignment> Salary_Assignment { get; set; }
+        public DbSet<Salary_AssignmentBreakUp> Salary_AssignmentBreakUp { get; set; }
+        public DbSet<Masters_Country> Masters_Country { get; set; }
+        public DbSet<Masters_Region> Masters_Region { get; set; }
+        public DbSet<Masters_State> Masters_State { get; set; }
+        public DbSet<Masters_City> Masters_City { get; set; }
+        public DbSet<Masters_Area> Masters_Area { get; set; }
         public override int SaveChanges()
         {
             var LoginID= _contextHelper.GetLoginID();
@@ -40,12 +49,12 @@ namespace Common.App.Data
                         }
                         else if (entityEntry.State == EntityState.Modified)
                         {
-                            var CreatedOnProperty = entityEntry.Property("CreatedOn");
+                            var CreatedOnProperty = entityEntry.Property("CreatedDate");
                             if (CreatedOnProperty != null)
                             {
                                 CreatedOnProperty.IsModified = false;
                             }
-                            var CreatedByProperty = entityEntry.Property("CreatedBy");
+                            var CreatedByProperty = entityEntry.Property("Createdby");
                             if (CreatedByProperty != null)
                             {
                                 CreatedByProperty.IsModified = false;
