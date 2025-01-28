@@ -14,5 +14,8 @@ namespace Common.App.Core.Dapper.ServiceContracts
         List<MastersRegion> GetRegionList(MastersRegion Modal);
         List<MastersCity> GetCityList(MastersCity Modal);
         List<MastersArea> GetAreaList(MastersArea Modal);
+        List<MastersDesignation> GetDesignationList(MastersDesignation Modal);
+        List<MastersDepartment> GetDepartmentList(MastersDepartment Modal);
+        List<MastersCompany> GetCompanyList(MastersCompany Modal);
     }
 }

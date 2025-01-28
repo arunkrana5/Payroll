@@ -1,4 +1,6 @@
 ﻿using Common.App.Data.Entities;
+using Common.App.Data.Entities.App;
+using Common.App.Data.Entities.Employee;
 using Common.App.Data.Entities.Masters;
 using Common.App.Data.Entities.Salary;
 using Microsoft.Data.SqlClient;
@@ -29,6 +31,12 @@ namespace Common.App.Data
         public DbSet<Masters_State> Masters_State { get; set; }
         public DbSet<Masters_City> Masters_City { get; set; }
         public DbSet<Masters_Area> Masters_Area { get; set; }
+        public DbSet<Masters_Designation> Masters_Designation { get; set; }
+        public DbSet<Masters_Department> Masters_Department { get; set; }
+        public DbSet<Masters_Company> Masters_Company { get; set; }
+        public DbSet<Master_Emp> Master_Emp { get; set; }
+        public DbSet<AppUsers> AppUsers { get; set; }
+        public DbSet<EMP_Documents> EMP_Documents { get; set; }
         public override int SaveChanges()
         {
             var LoginID= _contextHelper.GetLoginID();

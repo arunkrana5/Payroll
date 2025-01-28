@@ -11,7 +11,6 @@ namespace Common.App.Data.Entities.Salary
     {
         [Key]
         public long StructID { get; set; }
-        [Required(ErrorMessage ="Please Enter Structure Code")]
         public string StructCode { get; set; }
         public string Description { get; set; }
     }

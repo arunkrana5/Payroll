@@ -10,6 +10,6 @@ namespace Common.App.Core.Dapper.Helpers
     {
         public string Doctype { get; set; }
         public long LoginID {  get; set; }
-        public long ID { get; set; }
+        public long? ID { get; set; }
     }
 }

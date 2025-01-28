@@ -1,4 +1,5 @@
-﻿using Common.App.Core.Dapper.Models.Salary;
+﻿using Common.App.Core.Dapper.Models.Employee;
+using Common.App.Core.Dapper.Models.Salary;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,9 @@ namespace Common.App.Core.Dapper.ServiceContracts.Services
             _dapper = dapper;
         }
 
-        public List<SalaryComponents> GetSalaryComponentsList(SalaryComponents Modal)
+        public List<EmployeeMaster> GetEmployeeMasterList(EmployeeMaster Modal)
         {
-            List<SalaryComponents> result = new List<SalaryComponents>();
+            List<EmployeeMaster> result = new List<EmployeeMaster>();
             try
             {
                 using (IDbConnection DBContext = _dapper.CreateConnection())
@@ -27,12 +28,43 @@ namespace Common.App.Core.Dapper.ServiceContracts.Services
                     int commandTimeout = 0;
                     var param = new DynamicParameters();
                     param.Add("@LoginID", dbType: DbType.Int64, value: 1, direction: ParameterDirection.Input);
-                    param.Add("@CompID", dbType: DbType.Int64, value: Modal.CompID, direction: ParameterDirection.Input);
 
                     DBContext.Open();
-                    using (var reader = DBContext.QueryMultiple("spu_GetSalaryComponentList", param: param, commandType: CommandType.StoredProcedure, commandTimeout: commandTimeout))
+                    using (var reader = DBContext.QueryMultiple("spu_GetEmployeeMasterList", param: param, commandType: CommandType.StoredProcedure, commandTimeout: commandTimeout))
                     {
-                        result = reader.Read<SalaryComponents>().ToList();
+                        result = reader.Read<EmployeeMaster>().ToList();
+                    }
+
+                    DBContext.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public EmployeeMaster GetEmployeeMaster(EmployeeMaster Modal)
+        {
+            EmployeeMaster result = new EmployeeMaster();
+            try
+            {
+                using (IDbConnection DBContext = _dapper.CreateConnection())
+                {
+                    int commandTimeout = 0;
+                    var param = new DynamicParameters();
+                    param.Add("@LoginID", dbType: DbType.Int64, value: 1, direction: ParameterDirection.Input);
+                    param.Add("@EMPID", dbType: DbType.Int64, value: Modal.EMPID, direction: ParameterDirection.Input);
+
+                    DBContext.Open();
+                    using (var reader = DBContext.QueryMultiple("spu_GetEmployeeMaster", param: param, commandType: CommandType.StoredProcedure, commandTimeout: commandTimeout))
+                    {
+                        result = reader.Read<EmployeeMaster>().FirstOrDefault();
+                        if (result == null)
+                        {
+                            result = new EmployeeMaster();
+                        }
                     }
 
                     DBContext.Close();

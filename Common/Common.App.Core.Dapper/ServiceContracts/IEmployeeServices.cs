@@ -1,4 +1,4 @@
-﻿using Common.App.Core.Dapper.Models.Salary;
+﻿using Common.App.Core.Dapper.Models.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ namespace Common.App.Core.Dapper.ServiceContracts
 { 
     public interface IEmployeeServices
     {
-        List<SalaryComponents> GetSalaryComponentsList(SalaryComponents Modal);
+        List<EmployeeMaster> GetEmployeeMasterList(EmployeeMaster Modal);
+        EmployeeMaster GetEmployeeMaster(EmployeeMaster Modal);
     }
 }

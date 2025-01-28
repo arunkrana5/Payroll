@@ -156,5 +156,88 @@ namespace Common.App.Core.Dapper.ServiceContracts.Services
             }
             return result;
         }
+
+        public List<MastersDesignation> GetDesignationList(MastersDesignation Modal)
+        {
+            List<MastersDesignation> result = new List<MastersDesignation>();
+            try
+            {
+                using (IDbConnection DBContext = _dapper.CreateConnection())
+                {
+                    int commandTimeout = 0;
+                    var param = new DynamicParameters();
+                    param.Add("@LoginID", dbType: DbType.Int64, value: 1, direction: ParameterDirection.Input);
+                    //param.Add("@CompID", dbType: DbType.Int64, value: Modal.CompID, direction: ParameterDirection.Input);
+
+                    DBContext.Open();
+                    using (var reader = DBContext.QueryMultiple("spu_GetDesignationList", param: param, commandType: CommandType.StoredProcedure, commandTimeout: commandTimeout))
+                    {
+                        result = reader.Read<MastersDesignation>().ToList();
+                    }
+
+                    DBContext.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public List<MastersDepartment> GetDepartmentList(MastersDepartment Modal)
+        {
+            List<MastersDepartment> result = new List<MastersDepartment>();
+            try
+            {
+                using (IDbConnection DBContext = _dapper.CreateConnection())
+                {
+                    int commandTimeout = 0;
+                    var param = new DynamicParameters();
+                    param.Add("@LoginID", dbType: DbType.Int64, value: 1, direction: ParameterDirection.Input);
+                    //param.Add("@CompID", dbType: DbType.Int64, value: Modal.CompID, direction: ParameterDirection.Input);
+
+                    DBContext.Open();
+                    using (var reader = DBContext.QueryMultiple("spu_GetDepartmentList", param: param, commandType: CommandType.StoredProcedure, commandTimeout: commandTimeout))
+                    {
+                        result = reader.Read<MastersDepartment>().ToList();
+                    }
+
+                    DBContext.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+        public List<MastersCompany> GetCompanyList(MastersCompany Modal)
+        {
+            List<MastersCompany> result = new List<MastersCompany>();
+            try
+            {
+                using (IDbConnection DBContext = _dapper.CreateConnection())
+                {
+                    int commandTimeout = 0;
+                    var param = new DynamicParameters();
+                    param.Add("@LoginID", dbType: DbType.Int64, value: 1, direction: ParameterDirection.Input);
+                    //param.Add("@CompID", dbType: DbType.Int64, value: Modal.CompID, direction: ParameterDirection.Input);
+
+                    DBContext.Open();
+                    using (var reader = DBContext.QueryMultiple("spu_GetCompanyList", param: param, commandType: CommandType.StoredProcedure, commandTimeout: commandTimeout))
+                    {
+                        result = reader.Read<MastersCompany>().ToList();
+                    }
+
+                    DBContext.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
     }
 }

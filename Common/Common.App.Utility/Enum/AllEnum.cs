@@ -15,5 +15,11 @@ namespace Common.App.Utility.Enum
             Deduction,
             Contribution
         }
+        public enum Gender
+        {
+            Male,
+            Female,
+            Other
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Common.App.Data.Entities.App
         public string? Email { get; set; }
         public long RoleID { get; set; }
         public DateTime? LastLogin { get; set; }
-        public long AttachID { get; set; }
+        public int AttachID { get; set; }
         public string AllowLogin { get; set; }
     }
 }
