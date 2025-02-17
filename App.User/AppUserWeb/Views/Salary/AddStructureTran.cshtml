@@ -1,0 +1,82 @@
+﻿@using Common.App.Data.Entities.Salary
+@model Salary_StructureTran
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <h2>Salary Structure Tran add</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Payroll Module</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Salary Structure Tran Add</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                    <a href="@Url.Action("StructureTranList","Salary",new { src="Earning*"+ @ViewBag.StructID })" class="btn btn-sm btn-primary btn-round" title="">Back</a>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12">
+                <div class="card planned_task">
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="body mt-2">
+                                    <form asp-controller="Salary" asp-action="AddStructureTran" class="form-auth-small m-t-20" asp-route-src="@ViewBag.src">
+                                        <input type="hidden" name="EntrySource" value="Web" />
+                                        <input type="hidden" name="StructID" value="@ViewBag.StructID" />
+                                        <div class="row clearfix">
+                                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Structure Type</label>
+                                                    <select class="form-control show-tick round" asp-for="Doctype">
+                                                        <option>@ViewBag.DocType</option>
+                                                    </select>
+                                                    <span asp-validation-for="Doctype" class="text-red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Component</label>
+                                                    <select asp-items="ViewBag.CompList" asp-for="CompID" class="form-control round">
+
+                                                    </select>
+                                                    <span asp-validation-for="CompID" class="text-red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Amount</label>
+                                                    <input type="text" class="form-control round" asp-for="Amount" placeholder="Amount">
+                                                    <span asp-validation-for="Amount" class="text-red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Condition</label>
+                                                    <input type="text" class="form-control round" asp-for="Condition" placeholder="Condition">
+                                                    <span asp-validation-for="Condition" class="text-red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Formula</label>
+                                                    <input type="text" class="form-control round" asp-for="Formula" placeholder="Formula">
+                                                    <span asp-validation-for="Formula" class="text-red"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

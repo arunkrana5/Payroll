@@ -1,0 +1,156 @@
+﻿@using Common.App.Core.Dapper.Models.Salary
+
+@model SalaryAssignment;
+@{
+    var earnings = ViewBag.EarningList as List<SalaryCalculations>;
+    var deduction = ViewBag.DeductionList as List<SalaryCalculations>;
+    var contributions = ViewBag.ContributionList as List<SalaryCalculations>;
+}
+@{
+    if (Model.CalculationList != null)
+    {
+        if (Model.CalculationList.Count > 0)
+        {
+            int Count = 0;
+            <input type="hidden" id="hd_GrossSal" value="@Model.TotalList[0].GrossSalary"/>
+             <div class="card" id="salarycal">
+                 <div class="header">
+                     <h2>Earnings</h2>
+                 </div>
+                 <div class="body">
+                     <div class="table-responsive">
+                         <table class="table table-striped js-exportable dataTable table-custom spacing5" id="tbl_earning">
+                             <thead>
+                                 <tr>
+                                     <th>S. No.</th>
+                                     <th>Component Code</th>
+                                     <th>Formula</th>
+                                     <th>Calculated Amount</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="tbody_earning">
+             
+                             @foreach (var item in earnings)
+                             {
+                                 Count++;
+                                 <tr data-compid="@item.CompID">
+                                     <td>@Count</td>
+                                     <td><input type="hidden" name="CompID" value="@item.CompID"/>@item.CompCode</td>
+                                     <td>@item.Formula</td>
+                                     <td><input type="text" class="form-control round amount" name="Amount" value="@item.CalculatedValue"/></td>
+                                 </tr>
+                             }
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+             <div class="card" id="salarycal">
+                 <div class="header">
+                     <h2>Deductions</h2>
+                 </div>
+                 <div class="body">
+                     <div class="table-responsive">
+                         <table class="table table-striped js-exportable dataTable table-custom spacing5" id="tbl_deduction">
+                             <thead>
+                                 <tr>
+                                     <th>S. No.</th>
+                                     <th>Component Code</th>
+                                     <th>Formula</th>
+                                     <th>Calculated Amount</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="tbody_deduction">
+                             @{
+                                 Count = 0;
+                             }
+                             @foreach (var item in deduction)
+                             {
+                                 Count++;
+                                 <tr data-compid="@item.CompID">
+                                     <td>@Count</td>
+                                     <td><input type="hidden" name="CompID" value="@item.CompID" />@item.CompCode</td>
+                                     <td>@item.Formula</td>
+                                     <td><input type="text" class="form-control round amount" name="Amount" value="@item.CalculatedValue" /></td>
+                                 </tr>
+                             }
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+             <div class="card" id="salarycal">
+                 <div class="header">
+                     <h2>Contributions</h2>
+                 </div>
+                 <div class="body">
+                     <div class="table-responsive">
+                         <table class="table table-striped js-exportable dataTable table-custom spacing5" id="tbl_contribution">
+                             <thead>
+                                 <tr>
+                                     <th>S. No.</th>
+                                     <th>Component Code</th>
+                                     <th>Formula</th>
+                                     <th>Calculated Amount</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="tbody_contribution">
+                             @{
+                                 Count = 0;
+                             }
+                             @foreach (var item in contributions)
+                             {
+                                 Count++;
+                                 <tr data-compid="@item.CompID">
+                                     <td>@Count</td>
+                                     <td><input type="hidden" name="CompID" value="@item.CompID" />@item.CompCode</td>
+                                     <td>@item.Formula</td>
+                                     <td><input type="text" class="form-control round amount" name="Amount" value="@item.CalculatedValue" /></td>
+                                 </tr>
+                             }
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+            @if (Model.TotalList.Count > 0)
+            {
+                 <div class="card" id="totaldiv">
+                     <div class="header">
+                         <h2>Total Calculation</h2>
+                     </div>
+                     <div class="body">
+                         <div class="table-responsive">
+                             <table class="table table-striped js-exportable dataTable table-custom spacing5" id="salary_component">
+                                 <thead>
+                                     <tr>
+                                         <th>Earning</th>
+                                         <th>Deduction</th>
+                                         <th>Contribution</th>
+                                         <th>CTC</th>
+                                         <th>Net Pay</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                 @foreach (var item in Model.TotalList)
+                                 {
+                                      <tr>
+                                          <td>@item.Earning</td>
+                                          <td>@item.Deduction</td>
+                                          <td>@item.Contribution</td>
+                                          <td>@item.CTC</td>
+                                          <td>@item.NetPay</td>
+                                      </tr>
+                                 }
+                                 </tbody>
+                             </table>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-lg-1 col-md-1 col-sm-1">
+                     <button id="btn_submit" class="btn btn-primary" style="margin-top: 28px;">Submit</button>
+                 </div>
+            }
+        }
+    }
+}

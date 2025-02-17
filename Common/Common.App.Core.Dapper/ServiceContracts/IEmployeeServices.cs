@@ -1,4 +1,5 @@
-﻿using Common.App.Core.Dapper.Models.Employee;
+﻿using Common.App.Core.Dapper.Helpers;
+using Common.App.Core.Dapper.Models.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace Common.App.Core.Dapper.ServiceContracts
     {
         List<EmployeeMaster> GetEmployeeMasterList(EmployeeMaster Modal);
         EmployeeMaster GetEmployeeMaster(EmployeeMaster Modal);
+        Employee.Add GetEMP(GetResponse Modal);
+        PostResponse fnSetEMP(Employee.Add modal);
     }
 }

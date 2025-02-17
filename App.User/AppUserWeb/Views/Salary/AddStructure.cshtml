@@ -1,0 +1,64 @@
+﻿@using Common.App.Data.Entities.Salary
+@model Salary_Structure
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <h2>Salary structure add</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Payroll Module</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Salary structure add</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                    <a href="@Url.Action("StructureList","Salary",new { src="0" })" class="btn btn-sm btn-primary btn-round" title="">Back</a>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12">
+                <div class="card planned_task">
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>Salary Structure</h2>
+                                </div>
+                                <div class="body">
+                                    <form asp-controller="Salary" asp-action="AddStructure" class="form-auth-small m-t-20" asp-route-src="0">
+                                        <input type="hidden" name="EntrySource" value="Web" />
+                                        <div class="row clearfix">
+                                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Structure Code</label>
+                                                    <input type="text" class="form-control round" asp-for="StructCode" placeholder="Structure Code">
+                                                    <span asp-validation-for="StructCode" class="text-red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Description </label>
+                                                    <textarea class="form-control" asp-for="Description" placeholder="Description" rows="1" cols="30"></textarea>
+                                                    <span asp-validation-for="Description" class="text-red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                                <div class="form-group">
+                                                    <label>&nbsp;</label>
+                                                    <button type="submit" class="btn btn-primary" style="margin-top: 28px;">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

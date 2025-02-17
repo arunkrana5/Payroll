@@ -22,4 +22,11 @@ namespace Common.App.Utility.Enum
             Other
         }
     }
+    public class DropDownlist
+    {
+        public long ID { get; set; }
+        public string Name { get; set; }
+        public string Other { get; set; }
+
+    }
 }

@@ -1,0 +1,170 @@
+﻿@using Common.App.Data.Entities.Salary
+@model Salary_Assignment
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <h2>Salary Assignment Add</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Salary Assignment Add</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                    <a href="@Url.Action("SalaryAssignmentList","Salary",new { src="0" })" class="btn btn-sm btn-primary btn-round" title="">Back</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12">
+                <div class="card planned_task">
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>Salary Assignment</h2>
+                                </div>
+                                <div class="body">
+                                    <form asp-controller="Salary" asp-action="AddSalaryAssignment" class="form-auth-small m-t-20">
+                                        <input type="hidden" name="EntrySource" value="Web" />
+                                        <div class="row clearfix">
+                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Salary Structure</label>
+                                                    <select asp-items="ViewBag.StructList" asp-for="SalaryStructID" class="form-control custom-select round">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Employee</label>
+                                                    <select asp-items="ViewBag.EmpList" asp-for="EMPID" class="form-control custom-select round">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Salary</label>
+                                                    <input type="text" class="form-control round" asp-for="GrossSalary" placeholder="Salary">
+                                                    <span asp-validation-for="GrossSalary" class="text-red"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1 col-md-1 col-sm-1">
+                                                <button id="btnGetDetails" class="btn btn-primary" style="margin-top: 28px;">Get Details</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="CalculationDiv"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnGetDetails').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            GetSalaryCalculation();
+        });
+        $('#EMPID').on('change', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            GetSalaryCalculation();
+        });
+        $('#GrossSalary').on('change', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            GetSalaryCalculation();
+        });
+        $('#SalaryStructID').on('change', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            GetSalaryCalculation();
+        });
+    });
+    function GetCalculationList() {
+        var CalculationList = [];
+        var list = {};
+        if ($('#tbody_earning tr').length > 0) {
+            $('#tbody_earning tr').each(function () {
+                var compid = $(this).data('compid');
+                var Amount = $(this).find('.amount').val();
+                list = {
+                    CompID: compid,
+                    BreakUpAmount: Amount,
+                    EntrySource: "Web"
+                };
+                CalculationList.push(list);
+            });
+        }
+        if ($('#tbody_deduction tr').length > 0) {
+            $('#tbody_deduction tr').each(function () {
+                var compid = $(this).data('compid');
+                var Amount = $(this).find('.amount').val();
+                list = {
+                    CompID: compid,
+                    BreakUpAmount: Amount,
+                    EntrySource: "Web"
+                };
+                CalculationList.push(list);
+            });
+        }
+        if ($('#tbody_contribution tr').length > 0) {
+            $('#tbody_contribution tr').each(function () {
+                var compid = $(this).data('compid');
+                var Amount = $(this).find('.amount').val();
+                list = {
+                    CompID: compid,
+                    BreakUpAmount: Amount,
+                    EntrySource: "Web"
+                };
+                CalculationList.push(list);
+            });
+        }
+        return CalculationList;
+    }
+    function GetSalaryCalculation(){
+        let model = {};
+        model.SalaryStructID = $('#SalaryStructID').val();
+        model.EMPID = $('#EMPID').val();
+        model.GrossSalary = $('#GrossSalary').val();
+        model.EntrySource = "Web";
+        $.ajax({
+            url: '/Salary/_SalaryCalculation',
+            type: 'Post',
+            data: { src: 0, modal: model },
+            success: function (data) {
+                console.log(data);
+                $('#CalculationDiv').html('');
+                $('#CalculationDiv').html(data);
+                $('#GrossSalary').val($('#hd_GrossSal').val());
+                $('#btn_submit').on('click', function () {
+                    let obj = {}
+                    obj.SalaryStructID = $('#SalaryStructID').val();
+                    obj.EMPID = $('#EMPID').val();
+                    obj.GrossSalary = $('#GrossSalary').val();
+                    obj.EntrySource = "Web";
+                    $.ajax({
+                        url: '/Salary/AddSalaryAssignment',
+                        type: 'Post',
+                        data: { src: 0, modal: obj, list: GetCalculationList() },
+                        success: function (data) {
+                            console.log(data);
+                            location.href = '/Salary/SalaryAssignmentList?src=0'
+                        }
+                    });
+                });
+            }
+        });
+    }
+</script>

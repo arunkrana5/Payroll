@@ -1,0 +1,102 @@
+﻿@using Common.App.Core.Dapper.Models.Dealer
+@using Common.App.Utility.Helpers
+@model Dealer.Add;
+<style>
+    .card .header h2 {
+        font-size: 20px;
+        position: relative;
+    }
+</style>
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <h2>Dealer Add</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Dealer Add</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                    <a href="@Url.Action("DealerList","Dealer",new { src= @EncryptDecrypt.Encrypt("0") })" class="btn btn-sm btn-primary btn-round" title="">Back</a>
+                </div>
+            </div>
+        </div>
+        <form asp-action="AddEmployee" asp-controller="Employee" asp-route-src="@EncryptDecrypt.Encrypt("0*")" enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST" data-ajax-success="OnSuccess" data-ajax-failure="onFailure">
+            @* <form asp-controller="Employee" asp-action="AddEmployee" class="form-auth-small" asp-route-src="@EncryptDecrypt.Encrypt("0*")" enctype="multipart/form-data"> *@
+            <input type="hidden" asp-for="DealerID" />
+            <div class="card planned_task" style="background-color:white;">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="card p-4">
+                            <input type="hidden" name="EntrySource" value="Web" />
+                            <div class="row">
+                                <div class="col-lg-3 form-group">
+                                    <label>Dealer Code</label>
+                                    <input type="text" class="form-control round" asp-for="DealerCode" />
+                                    <span asp-validation-for="DealerCode" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-3 form-group">
+                                    <label>Dealer Name </label>
+                                    <input type="text" class="form-control round" asp-for="DealerName" />
+                                    <span asp-validation-for="DealerName" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-3 form-group">
+                                    <label>Dealer Category ID</label>
+                                    <input type="text" class="form-control round" asp-for="DealerCategoryID" />
+                                    <span asp-validation-for="DealerCategoryID" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-3 form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control round" asp-for="Address" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 button-clients">
+                                    <button name="Command" value="Add" class="btn client-save btn-primary" type="submit">Save</button>
+                                    <a href="@Url.Action("DealerList","Dealer",new { src= @EncryptDecrypt.Encrypt("0") })" type="button" class="btn btn-danger client-close">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+    function OnSuccess(obj) {
+        console.log(obj);
+        if (obj.status) {
+            //alert(obj.successMessage);
+            window.location.href = obj.RedirectURL;
+        }
+        else {
+            alert(obj.successMessage);
+
+        }
+    }
+    function onFailure(obj) {
+        FailToaster(obj.SuccessMessage);
+    }
+    function displaySelectedImage(event, elementId) {
+        const selectedImage = document.getElementById(elementId);
+        const fileInput = event.target;
+
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                selectedImage.src = e.target.result;
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>

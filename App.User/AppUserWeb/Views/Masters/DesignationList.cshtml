@@ -1,0 +1,51 @@
+﻿@using Common.App.Core.Dapper.Models.Masters
+@using Common.App.Utility.Helpers
+@model IList<MastersDesignation>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<div id="main-content">
+    <div class="container-fluid">
+        <input type="hidden" id="hdnAddUrl" name="hdnAddUrl" value="@Url.Action("AddDesignation","Masters",new { src = @EncryptDecrypt.Encrypt("0") })" />
+        @await Html.PartialAsync("_ListHeader", "Designation List")
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-striped js-exportable dataTable table-custom spacing5" id="tbl_Design">
+                                <thead>
+                                    <tr>
+                                        <th>S. No.</th>
+                                        <th>Designation Code</th>
+                                        <th>Designation Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int count = 0;
+                                    }
+                                    @foreach (MastersDesignation item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.DesignCode</td>
+                                            <td>@item.DesignName</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    var $jq = jQuery.noConflict();
+    $jq(document).ready(function(){
+        $jq('#tbl_Design').DataTable();
+    });
+</script>
